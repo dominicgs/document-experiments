@@ -1,0 +1,81 @@
+%!PS
+/Courier             % name the desired font
+40 selectfont        % choose the size in points and establish 
+
+/s 2 string def
+
+/printnum {
+rand
+99 mod
+1 add
+} def
+
+/IncX {/x x 60 add def} def
+/ResX {/x baseX def} def
+/DecY {/y y 50 sub def} def
+/IncCount {/counter counter 1 add def} def
+
+/x 72 def
+/baseX 72 def
+/y 500 def
+/counter 0 def
+
+realtime
+srand
+
+/numDict 24 dict def
+
+25 {
+counter 12 eq
+{
+( *) show
+}
+{
+x y moveto			% position the current point at (x,y)
+printnum
+dup
+10 lt {
+x 11 add
+y moveto
+} if
+s cvs show
+} ifelse
+
+IncX
+IncCount
+
+counter 5 mod
+0 eq {ResX DecY} if
+
+} repeat
+
+/baseX 65 def
+/endX 365 def
+/baseY 540 def
+/endY 290 def
+/x baseX def
+/y baseY def
+/counter 0 def
+
+/HLine {
+newpath
+baseX y moveto
+endX y lineto
+stroke
+} def
+
+/VLine {
+newpath
+x baseY moveto
+x endY lineto
+stroke
+} def
+
+6 {
+HLine
+VLine
+IncX
+DecY
+} repeat
+
+showpage             % print all on the page
