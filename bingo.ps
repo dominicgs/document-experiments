@@ -1,29 +1,50 @@
 %!PS
-/Courier             % name the desired font
-40 selectfont        % choose the size in points and establish 
+/Courier
+40 selectfont 
 
 /s 2 string def
 
+realtime
+srand
+
 /printnum {
+rand realtime add % Some super-hacky randomness based on execution time
+srand
 rand
 99 mod
 1 add
 } def
 
-/IncX {/x x 60 add def} def
+/GenNums {
+numDict begin
+rand
+99 mod
+1 add
+end
+} def
+
+/boxWidth 60 def
+/boxHeight 50 def
+
+/IncX {/x x boxWidth add def} def
 /ResX {/x baseX def} def
-/DecY {/y y 50 sub def} def
+/DecY {/y y boxHeight sub def} def
+/ResY {/y baseY def} def
 /IncCount {/counter counter 1 add def} def
 
-/x 72 def
 /baseX 72 def
-/y 500 def
+/baseY 500 def
+ResX
+ResY
 /counter 0 def
 
-realtime
-srand
-
 /numDict 24 dict def
+numDict begin
+
+numDict length
+72 140 moveto
+s cvs show
+end
 
 25 {
 counter 12 eq
@@ -31,7 +52,7 @@ counter 12 eq
 ( *) show
 }
 {
-x y moveto			% position the current point at (x,y)
+x y moveto
 printnum
 dup
 10 lt {
@@ -49,13 +70,15 @@ counter 5 mod
 
 } repeat
 
+%
+% Draw grid
+%
 /baseX 65 def
 /endX 365 def
 /baseY 540 def
 /endY 290 def
-/x baseX def
-/y baseY def
-/counter 0 def
+ResX
+ResY
 
 /HLine {
 newpath
@@ -78,4 +101,4 @@ IncX
 DecY
 } repeat
 
-showpage             % print all on the page
+showpage
